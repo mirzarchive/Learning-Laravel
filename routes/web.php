@@ -26,20 +26,23 @@ use Illuminate\Support\Facades\Route;
 | OPTIONS - Ask the server which verbs are allowed
 */
 
-// GET
-Route::get('/blog', [PostController::class, 'index'])->name('blog.index');
-Route::get('/blog/{id}', [PostController::class, 'show'])->name('blog.show')->whereNumber('id');
 
-// POST
-Route::get('/blog/create', [PostController::class, 'create'])->name('blog.create');
-Route::post('/blog', [PostController::class, 'store'])->name('blog.store');
+Route::prefix('blog')->group(function () {
+    // GET
+    Route::get('/', [PostController::class, 'index'])->name('blog.index');
+    Route::get('/{id}', [PostController::class, 'show'])->name('blog.show')->whereNumber('id');
 
-// PUT or PATCH
-Route::get('/blog/edit/{id}', [PostController::class, 'edit'])->name('blog.edit');
-Route::patch('/blog/{id}', [PostController::class, 'update'])->name('blog.update');
+    // POST
+    Route::get('/create', [PostController::class, 'create'])->name('blog.create');
+    Route::post('/', [PostController::class, 'store'])->name('blog.store');
 
-// DELETE
-Route::delete('/blog/{id}', [PostController::class, 'destroy'])->name('blog.destroy');
+    // PUT or PATCH
+    Route::get('/edit/{id}', [PostController::class, 'edit'])->name('blog.edit');
+    Route::patch('/{id}', [PostController::class, 'update'])->name('blog.update');
+
+    // DELETE
+    Route::delete('/{id}', [PostController::class, 'destroy'])->name('blog.destroy');
+});
 
 // Multiple HTTP Request
 // Route::match(['GET', 'POST'], '/blog', [PostController::class, 'index']);
