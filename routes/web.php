@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FallbackController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use Barryvdh\Debugbar\Facades\Debugbar;
@@ -44,13 +45,15 @@ Route::prefix('blog')->group(function () {
     Route::delete('/{id}', [PostController::class, 'destroy'])->name('blog.destroy');
 });
 
+// Route for invoke method
+Route::get('/', HomeController::class);
+
+Route::fallback(FallbackController::class);
 // Multiple HTTP Request
 // Route::match(['GET', 'POST'], '/blog', [PostController::class, 'index']);
 
 // Route::resource('/blog', [PostController::class]);
 
-// Route for invoke method
-Route::get('/', HomeController::class);
 
 // Any Incoming HTTP Request
 // Route::any('/blog', [PostController::class, 'index']);
