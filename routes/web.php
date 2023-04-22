@@ -28,7 +28,18 @@ use Illuminate\Support\Facades\Route;
 
 // GET
 Route::get('/blog', [PostController::class, 'index']);
-Route::get('/article/{id?}', [PostController::class, 'show']);
+// Route::get('/blog/{id}', [PostController::class, 'show'])->where([
+//     'id' => '[0-9]+'
+// ]);
+// Route::get('/blog/{name}', [PostController::class, 'show'])->where('name', '[A-Za-z]+');
+Route::get('blog/{id}/{name}', [PostController::class, 'show'])
+    ->where([
+        'id' => '[0-9]+',
+        'name' => '[A-Za-z]+'
+    ]);
+Route::get('blog/{id}/{name}', [PostController::class, 'show'])
+    ->whereNumber('id')
+    ->whereAlpha('name');
 
 // POST
 Route::get('/blog/create', [PostController::class, 'create']);

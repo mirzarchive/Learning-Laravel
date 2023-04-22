@@ -33,7 +33,7 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id = '1')
+    public function show(string $id)
     {
         return $id;
     }
