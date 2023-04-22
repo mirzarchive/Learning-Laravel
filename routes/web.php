@@ -27,30 +27,19 @@ use Illuminate\Support\Facades\Route;
 */
 
 // GET
-Route::get('/blog', [PostController::class, 'index']);
-// Route::get('/blog/{id}', [PostController::class, 'show'])->where([
-//     'id' => '[0-9]+'
-// ]);
-// Route::get('/blog/{name}', [PostController::class, 'show'])->where('name', '[A-Za-z]+');
-Route::get('blog/{id}/{name}', [PostController::class, 'show'])
-    ->where([
-        'id' => '[0-9]+',
-        'name' => '[A-Za-z]+'
-    ]);
-Route::get('blog/{id}/{name}', [PostController::class, 'show'])
-    ->whereNumber('id')
-    ->whereAlpha('name');
+Route::get('/blog', [PostController::class, 'index'])->name('blog.index');
+Route::get('/blog/{id}', [PostController::class, 'show'])->name('blog.show')->whereNumber('id');
 
 // POST
-Route::get('/blog/create', [PostController::class, 'create']);
-Route::post('/blog', [PostController::class, 'store']);
+Route::get('/blog/create', [PostController::class, 'create'])->name('blog.create');
+Route::post('/blog', [PostController::class, 'store'])->name('blog.store');
 
 // PUT or PATCH
-Route::get('/blog/edit/{id}', [PostController::class, 'edit']);
-Route::patch('/blog/{id}', [PostController::class, 'update']);
+Route::get('/blog/edit/{id}', [PostController::class, 'edit'])->name('blog.edit');
+Route::patch('/blog/{id}', [PostController::class, 'update'])->name('blog.update');
 
 // DELETE
-Route::delete('/blog/{id}', [PostController::class, 'destroy']);
+Route::delete('/blog/{id}', [PostController::class, 'destroy'])->name('blog.destroy');
 
 // Multiple HTTP Request
 // Route::match(['GET', 'POST'], '/blog', [PostController::class, 'index']);
