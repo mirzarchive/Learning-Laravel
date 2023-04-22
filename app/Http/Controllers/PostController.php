@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
 {
@@ -11,6 +12,13 @@ class PostController extends Controller
      */
     public function index()
     {
+        $data = DB::table('posts')
+            ->select()
+            ->where('is_published', true)
+            ->get();
+
+        dd($data);
+
         return view('blog.index');
     }
 
