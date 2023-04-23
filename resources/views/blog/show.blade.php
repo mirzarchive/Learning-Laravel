@@ -4,13 +4,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  @vite('resources/css/app.css')
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Index</title>
+  <title>Document</title>
 </head>
 
 <body>
-  <p>Hi There Index</p>
+  {{ $data }}
 </body>
 
 </html>

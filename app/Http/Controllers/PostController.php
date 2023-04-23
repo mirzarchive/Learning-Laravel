@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -12,14 +13,9 @@ class PostController extends Controller
      */
     public function index()
     {
-        $data = DB::table('posts')
-            ->select()
-            ->where('is_published', true)
-            ->get();
-
-        dd($data);
-
-        return view('blog.index');
+        return view('blog.index', [
+            'datas' => Post::all()->toArray()
+        ]);
     }
 
     /**
@@ -43,7 +39,9 @@ class PostController extends Controller
      */
     public function show(string $id)
     {
-        return $id;
+        return view('blog.show', [
+            'data' => Post::findOrFail($id)
+        ]);
     }
 
     /**
