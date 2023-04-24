@@ -14,7 +14,7 @@ class PostController extends Controller
     public function index()
     {
         return view('blog.index', [
-            'datas' => Post::all()->toArray()
+            'posts' => Post::all()
         ]);
     }
 
@@ -40,7 +40,7 @@ class PostController extends Controller
     public function show(string $id)
     {
         return view('blog.show', [
-            'data' => Post::findOrFail($id)
+            'post' => Post::findOrFail($id)
         ]);
     }
 
