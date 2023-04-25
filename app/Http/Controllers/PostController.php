@@ -108,7 +108,9 @@ class PostController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Post::destroy($id);
+
+        return redirect(route('blog.index'))->with('message', 'The Post successfuly deleted');
     }
 
     private function storeFile(Request $request)

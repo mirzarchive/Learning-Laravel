@@ -29,19 +29,12 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::prefix('blog')->group(function () {
-    // POST
     Route::get('/create', [PostController::class, 'create'])->name('blog.create');
     Route::post('/', [PostController::class, 'store'])->name('blog.store');
-
-    // GET
     Route::get('/', [PostController::class, 'index'])->name('blog.index');
     Route::get('/{id}', [PostController::class, 'show'])->name('blog.show');
-
-    // PUT or PATCH
     Route::get('/edit/{id}', [PostController::class, 'edit'])->name('blog.edit');
     Route::patch('/{id}', [PostController::class, 'update'])->name('blog.update');
-
-    // DELETE
     Route::delete('/{id}', [PostController::class, 'destroy'])->name('blog.destroy');
 });
 
