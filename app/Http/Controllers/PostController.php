@@ -49,7 +49,7 @@ class PostController extends Controller
             'excerpt' => $request->excerpt,
             'body' => $request->body,
             'min_to_read' => $request->min_to_read,
-            'image_path' => 'unavailable',
+            'image_path' => $this->storeFile($request),
             'is_published' => $request->is_published === 'on',
         ]);
 
@@ -88,5 +88,12 @@ class PostController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    private function storeFile(Request $request)
+    {
+        $newPayloadFileName = uniqid() . "-{$request->title}.{$request->image->extension()}";
+
+        return $request->image->move(public_path('images'), $newPayloadFileName);
     }
 }
