@@ -31,6 +31,7 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        /*
         $post = new Post();
 
         $post->title = $request->title;
@@ -41,6 +42,16 @@ class PostController extends Controller
         $post->is_published = $request->is_published === 'on';
 
         $post->save();
+        */
+
+        Post::create([
+            'title' => $request->title,
+            'excerpt' => $request->excerpt,
+            'body' => $request->body,
+            'min_to_read' => $request->min_to_read,
+            'image_path' => 'unavailable',
+            'is_published' => $request->is_published === 'on',
+        ]);
 
         return redirect(route('blog.index'));
     }
