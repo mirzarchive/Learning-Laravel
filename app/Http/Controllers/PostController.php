@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PostFormRequest;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -29,7 +30,7 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(PostFormRequest $request)
     {
 
         // $post = new Post();
@@ -43,22 +44,14 @@ class PostController extends Controller
 
         // $post->save();
 
-        $request->validate([
-            'title' => 'required|unique:posts|max:255',
-            'excerpt' => 'required',
-            'body' => 'required',
-            'min_to_read' => 'required|min:0|max:60',
-            'image' => 'required|mimes:ppg,jng,jpeg'
-        ]);
+        $request->validated();
 
-        Post::create([
-            'title' => $request->title,
-            'excerpt' => $request->excerpt,
-            'body' => $request->body,
-            'min_to_read' => $request->min_to_read,
-            'image_path' => $this->storeFile($request),
-            'is_published' => $request->is_published === 'on',
-        ]);
+        Post::create($request
+            ->merge([
+                'image_path' => $this->storeFile($request),
+                'is_published' => $request->is_published === 'on'
+            ])
+            ->except(['_token', '_method']));
 
         return redirect(route('blog.index'));
     }
@@ -86,19 +79,15 @@ class PostController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(PostFormRequest $request, string $id)
     {
-        $request->validate([
-            'title' => 'required|max:255|unique:posts,title,' . $id,
-            'excerpt' => 'required',
-            'body' => 'required',
-            'min_to_read' => 'required|min:0|max:60',
-            'image' => 'mimes:ppg,jng,jpeg'
-        ]);
+        $request->validated();
 
-        Post::where('id', $id)->update($request->except([
-            '_token', '_method'
-        ]));
+        Post::where('id', $id)->update($request
+            ->merge([
+                'is_published' => $request->is_published === 'on'
+            ])
+            ->except(['_token', '_method']));
 
         return redirect(route('blog.index'));
     }
@@ -113,7 +102,7 @@ class PostController extends Controller
         return redirect(route('blog.index'))->with('message', 'The Post successfuly deleted');
     }
 
-    private function storeFile(Request $request)
+    private function storeFile(PostFormRequest $request)
     {
         $newPayloadFileName = uniqid() . "-{$request->title}.{$request->image->extension()}";
 
