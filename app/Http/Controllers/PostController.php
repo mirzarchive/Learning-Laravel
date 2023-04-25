@@ -23,7 +23,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('blog.create');
     }
 
     /**
@@ -31,7 +31,18 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $post = new Post();
+
+        $post->title = $request->title;
+        $post->excerpt = $request->excerpt;
+        $post->body = $request->body;
+        $post->min_to_read = $request->min_to_read;
+        $post->image_path = 'unavailable';
+        $post->is_published = $request->is_published === 'on';
+
+        $post->save();
+
+        return redirect(route('blog.index'));
     }
 
     /**
