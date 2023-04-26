@@ -46,12 +46,14 @@ class PostController extends Controller
 
         $request->validated();
 
-        Post::create($request
+        $post = Post::create($request
             ->merge([
                 'image_path' => $this->storeFile($request),
                 'is_published' => $request->is_published === 'on'
             ])
             ->except(['_token', '_method']));
+
+        $post->meta()->create([]);
 
         return redirect(route('blog.index'));
     }
