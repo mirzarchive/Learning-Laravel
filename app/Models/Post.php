@@ -13,6 +13,6 @@ class Post extends Model
     use HasUlids;
 
     protected $fillable = [
-        'title', 'excerpt', 'body', 'min_to_read', 'image_path', 'is_published'
+        'user_id', 'title', 'excerpt', 'body', 'min_to_read', 'image_path', 'is_published'
     ];
 }
