@@ -14,11 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [HomeController::class, 'index']);
-Route::get('/about', [HomeController::class, 'about']);
-Route::get('/contact', [HomeController::class, 'contact']);
+Route::get('/', [HomeController::class, 'index'])->name('home.index'); // named home.* because of Controller name
+Route::get('/about', [HomeController::class, 'about'])->name('home.about');
+Route::get('/contact', [HomeController::class, 'contact'])->name('home.contact');
 
-Route::get('/store/{category?}/{item?}', function($category = null, $item = null) {
+Route::get('/store/{category?}/{item?}', function ($category = null, $item = null) {
     if (isset($category)) {
         if (isset($item)) {
             return "You are viewing store for $category for $item";
