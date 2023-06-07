@@ -21,12 +21,24 @@ Route::get('/about', function() {
     return '<h1>BALLLSSSS</h1>';
 });
 
-Route::get('/store', function() {
-    $category = request('category');
-
+Route::get('/store/{category?}/{item?}', function($category = null, $item = null) {
     if (isset($category)) {
-        return 'You are viewing store for ' . strip_tags($category);
+        if (isset($item)) {
+            return "You are viewing store for $category for $item";
+        }
+
+        return "You are viewing store for $category";
     }
 
     return 'You are viewing all instruments';
 });
+
+// Route::get('/store', function() {
+//     $category = request('category');
+
+//     if (isset($category)) {
+//         return 'You are viewing store for ' . strip_tags($category);
+//     }
+
+//     return 'You are viewing all instruments';
+// });
