@@ -20,3 +20,13 @@ Route::get('/', function () {
 Route::get('/about', function() {
     return '<h1>BALLLSSSS</h1>';
 });
+
+Route::get('/store', function() {
+    $category = request('category');
+
+    if (isset($category)) {
+        return 'You are viewing store for ' . strip_tags($category);
+    }
+
+    return 'You are viewing all instruments';
+});
