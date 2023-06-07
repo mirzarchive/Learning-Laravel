@@ -18,9 +18,24 @@
             body {
                 font-family: 'Nunito', sans-serif;
             }
+
+            .p-4 {
+                padding: 1rem
+            }
+
+            nav a {
+                padding: .5rem
+            }
         </style>
     </head>
     <body class="antialiased">
+        <div class="relative p-4">
+            <nav>
+                <a href="/">Home</a>
+                <a href="/about">About</a>
+                <a href="/contact">Contact</a>
+            </nav>
+        </div>
         <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
             @if (Route::has('login'))
                 <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">

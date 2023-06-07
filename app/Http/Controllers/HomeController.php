@@ -18,11 +18,11 @@ class HomeController extends Controller
 
     public function about()
     {
-        return 'You are viewing About Page';
+        return view('about');
     }
 
     public function contact() {
-        return 'You are viewing Contact Page';
+        return view('contact');
     }
 
     /**
