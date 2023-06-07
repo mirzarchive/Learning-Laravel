@@ -9,14 +9,14 @@
         @foreach ($guitars as $guitar)
         <div>
             <h3>
-                {{ $guitar['name'] }}
-                <ul>
-                        <li>
-                            Made by: {{ $guitar['brand'] }}
-                        </li>
-                    </ul>
-                </h3>
-            </div>
+                <a href="{{ route('guitars.show', ['guitar' => $guitar['id']]) }}">{{ $guitar['name'] }}</a>
+            </h3>
+            <ul>
+                <li>
+                    Made by: {{ $guitar['brand'] }}
+                </li>
+            </ul>
+        </div>
         @endforeach
     @else
         <h2>Theres no Guitars to show</h2>
