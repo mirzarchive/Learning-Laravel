@@ -6,6 +6,16 @@ use Illuminate\Http\Request;
 
 class GuitarsController extends Controller
 {
+    private function getData()
+    {
+        return [
+            ['id' => 1, 'name' => 'American Standard Strat', 'brand' => 'Fender'],
+            ['id' => 2, 'name' => 'Starla S3', 'brand' => 'PRS'],
+            ['id' => 3, 'name' => 'Explorer', 'brand' => 'Gibson'],
+            ['id' => 4, 'name' => 'Talman', 'brand' => 'Fender']
+        ];
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +24,10 @@ class GuitarsController extends Controller
     public function index()
     {
         // GET
-        return view('guitars.index');
+        return view('guitars.index', [
+            'guitars' => self::getData(),
+            'userInput' => strip_tags('<script>alert("hello")</script>')
+        ]);
     }
 
     /**
