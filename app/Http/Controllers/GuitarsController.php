@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\GuitarFormRequest;
 use App\Models\Guitar;
 use Illuminate\Http\Request;
 
@@ -48,20 +49,16 @@ class GuitarsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(GuitarFormRequest $request)
     {
         // POST
-        $request->validate([
-            'name' => 'required',
-            'brand' => 'required',
-            'year' => 'required|integer'
-        ]);
+        $data = $request->validated();
 
         $guitar = new Guitar();
 
-        $guitar->name = $request->input('name');
-        $guitar->brand = $request->input('brand');
-        $guitar->year_made = $request->input('year');
+        $guitar->name = $data['name'];
+        $guitar->brand = $data['brand'];
+        $guitar->year_made = $data['year'];
 
         // $guitar = new Guitar([
         //     'name' => $request->input('name'),
@@ -80,12 +77,10 @@ class GuitarsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($guitar)
+    public function show(Guitar $guitar)
     {
         // GET
-        return view('guitars.show', [
-            'guitar' => Guitar::findOrFail($guitar)
-        ]);
+        return view('guitars.show', ['guitar' => $guitar]);
     }
 
     /**
@@ -94,10 +89,10 @@ class GuitarsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($guitar)
+    public function edit(Guitar $guitar)
     {
         // GET
-        return view('guitars.edit', ['guitar' => Guitar::findOrFail($guitar)]);
+        return view('guitars.edit', ['guitar' => $guitar]);
     }
 
     /**
@@ -107,24 +102,18 @@ class GuitarsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $guitar)
+    public function update(GuitarFormRequest $request, Guitar $guitar)
     {
         // POST, PUT, PATCH (depends on what kind of UPDATE user performing)
-        $request->validate([
-            'name' => 'required',
-            'brand' => 'required',
-            'year' => 'required|integer'
-        ]);
+        $data = $request->validated();
 
-        $record = Guitar::findOrFail($guitar);
+        $guitar->name = $data['name'];
+        $guitar->brand = $data['brand'];
+        $guitar->year_made = $data['year'];
 
-        $record->name = $request->input('name');
-        $record->brand = $request->input('brand');
-        $record->year_made = $request->input('year');
+        $guitar->save();
 
-        $record->save();
-
-        return redirect()->route('guitars.show', ['guitar' => $record['id']]);
+        return redirect()->route('guitars.show', ['guitar' => $guitar->id]);
     }
 
     /**

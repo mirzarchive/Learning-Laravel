@@ -8,9 +8,9 @@
       @csrf
       @method('PUT')
       <div>
-        <label class="text-sm" for="guitar-name">Guitar Name</label>
-        <input class="text-lg border-1" type="text" id="guitar-name" value="{{ $guitar->name }}" name="guitar-name">
-        @error('guitar-name')
+        <label class="text-sm" for="name">Guitar Name</label>
+        <input class="text-lg border-1" type="text" id="name" value="{{ $guitar->name }}" name="name">
+        @error('name')
           <div class="form-error">
             {{ $message }}
           </div>
