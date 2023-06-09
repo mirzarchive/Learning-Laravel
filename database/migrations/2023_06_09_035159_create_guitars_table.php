@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('guitars', function (Blueprint $table) {
-            $table->ulid();
+            $table->ulid('id');
             $table->string('name');
             $table->string('brand');
             $table->integer('year_made', false, true);

@@ -15,6 +15,9 @@
                 <li>
                     Made by: {{ $guitar['brand'] }}
                 </li>
+                <li>
+                    Year made: {{ $guitar['year_made'] }}
+                </li>
             </ul>
         </div>
         @endforeach
@@ -22,9 +25,9 @@
         <h2>Theres no Guitars to show</h2>
     @endif
 
-    <div>
+    {{-- <div>
         User Input: {{ $userInput }}
-    </div>
+    </div> --}}
 
 </div>
 
