@@ -51,9 +51,14 @@ class GuitarsController extends Controller
     public function store(Request $request)
     {
         // POST
+        $request->validate([
+            'name' => 'required',
+            'brand' => 'required',
+            'year' => 'required|integer'
+        ]);
+
         $guitar = new Guitar();
 
-        
         $guitar->name = $request->input('name');
         $guitar->brand = $request->input('brand');
         $guitar->year_made = $request->input('year');
