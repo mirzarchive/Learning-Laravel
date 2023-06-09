@@ -24,7 +24,7 @@
     @endif
 
     <div class="white-text">
-      User Input: {{ $userInput }}
+      <a href="{{ route('guitars.create') }}" class="white-text" style="font-weight: bold">Insert more Guitar</a>
     </div>
   </div>
 @endsection

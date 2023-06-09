@@ -54,17 +54,25 @@ class GuitarsController extends Controller
         // POST
         $data = $request->validated();
 
+        // Guitar::create([
+        //     'name' => $request['name'],
+        //     'brand' => $request['brand'],
+        //     'year_made' => $request['year']
+        // ]);
+        // // or directly use incoming request data
+        // // but all field must the same as table column name
+
         $guitar = new Guitar();
 
         $guitar->name = $data['name'];
         $guitar->brand = $data['brand'];
         $guitar->year_made = $data['year'];
 
-        // $guitar = new Guitar([
-        //     'name' => $request->input('name'),
-        //     'brand' => $request->input('brand'),
-        //     'year_made' => $request->input('year')
-        // ]);
+        $guitar = new Guitar([
+            'name' => $request->input('name'),
+            'brand' => $request->input('brand'),
+            'year_made' => $request->input('year')
+        ]);
 
         $guitar->save();
 
@@ -78,6 +86,8 @@ class GuitarsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Guitar $guitar)
+    // $guitar here and below are actually id passed by the client
+    // then searched by the Server directly, continue if not fail
     {
         // GET
         return view('guitars.show', ['guitar' => $guitar]);
@@ -107,11 +117,17 @@ class GuitarsController extends Controller
         // POST, PUT, PATCH (depends on what kind of UPDATE user performing)
         $data = $request->validated();
 
-        $guitar->name = $data['name'];
-        $guitar->brand = $data['brand'];
-        $guitar->year_made = $data['year'];
+        $guitar->update([
+            'name' => $data['name'],
+            'brand' => $data['brand'],
+            'year_made' => $data['year']
+        ]);
 
-        $guitar->save();
+        // $guitar->name = $data['name'];
+        // $guitar->brand = $data['brand'];
+        // $guitar->year_made = $data['year'];
+
+        // $guitar->save();
 
         return redirect()->route('guitars.show', ['guitar' => $guitar->id]);
     }
@@ -122,8 +138,11 @@ class GuitarsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($guitar)
     {
-        // DELETE
+        Guitar::destroy($guitar);
+        // or use $guitar->delete() if the parameter is an Guitar object
+
+        return redirect()->route('guitars.index');
     }
 }

@@ -10,4 +10,6 @@ class Guitar extends Model
 {
     use HasFactory;
     use HasUlids;
+
+    protected $fillable = ['name', 'brand', 'year_made'];
 }
