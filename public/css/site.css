@@ -2,6 +2,10 @@ body {
     font-family: "Nunito", sans-serif;
 }
 
+.white-text {
+    color: white;
+}
+
 .p-4 {
     padding: 1rem;
 }

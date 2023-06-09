@@ -1,18 +1,16 @@
 @extends('layout')
 
-@section('title', 'Create Guitars')
-
 @section('content')
+  <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
 
-  <div class="content-center max-w-6xl mx-auto sm:px-6 lg:px-8">
-    <form class="form bg-white p-6 border-1" action="{{ route('guitars.update', ['guitar' => $guitar->id]) }}"
-      method="POST">
+    <form class="form bg-white p-6 border-1" method="POST"
+      action="{{ route('guitars.update', ['guitar' => $guitar->id]) }}">
       @csrf
       @method('PUT')
       <div>
-        <label class="text-sm" for="name">Guitar Name</label>
-        <input class="text-lg border-1" type="text" name="name" value="{{ $guitar->name }}" id="name">
-        @error('name')
+        <label class="text-sm" for="guitar-name">Guitar Name</label>
+        <input class="text-lg border-1" type="text" id="guitar-name" value="{{ $guitar->name }}" name="guitar-name">
+        @error('guitar-name')
           <div class="form-error">
             {{ $message }}
           </div>
@@ -20,7 +18,7 @@
       </div>
       <div>
         <label class="text-sm" for="brand">Brand</label>
-        <input class="text-lg border-1" type="text" name="brand" value="{{ $guitar->brand }}" id="brand">
+        <input class="text-lg border-1" type="text" id="brand" name="brand" value="{{ $guitar->brand }}">
         @error('brand')
           <div class="form-error">
             {{ $message }}
@@ -29,7 +27,7 @@
       </div>
       <div>
         <label class="text-sm" for="year">Year Made</label>
-        <input class="text-lg border-1" type="text" name="year" value="{{ $guitar->year_made }}" id="year">
+        <input class="text-lg border-1" type="text" id="year" name="year" value="{{ $guitar->year_made }}">
         @error('year')
           <div class="form-error">
             {{ $message }}
@@ -37,9 +35,9 @@
         @enderror
       </div>
       <div>
-        <button class="border-1" type="submit">Submit</button>
+        <button class=" border-1" type="submit">Submit</button>
       </div>
     </form>
-  </div>
 
+  </div>
 @endsection
